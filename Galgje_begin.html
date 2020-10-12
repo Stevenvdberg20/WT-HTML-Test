@@ -1,3 +1,8 @@
+<head>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
+  <title>insert page</title>
+</head>
 <style>
   h1{
     color:darkblue;
@@ -12,30 +17,64 @@
 // 3 Coderen (funct doel --> 1) OPRUIMEN
 // 
   var hetWoord;
-  function beginnen(){
+  var woord;
+  var gegokteLetters = [];
+  function beginnen(){ // Functie voor verbergen van knop na een galg-woord te hebben gesubmit
     document.getElementById("invoerveld").hidden = true;
     document.getElementById("startknop").hidden = true;
-    hetWoord = document.getElementById("invoerveld").value;
+    hetWoord = document.getElementById("invoerveld").value; // Het galg woord
     maakWoord();
   }
-  function maakWoord(){
+  function maakWoord(){ // Verander het galg-woord in streepjes
     var x = hetWoord.length;
-    var woord = "";
+    woord = "";
     for(var i = 0 ; i < x ; i++){
       woord += "- ";
     }
     document.getElementById("uitkomst").innerHTML = woord;
   }
-  function raadletter(){
+  
+  function raadletter(){ // De loop voor het gokken van woorden
     var letterbox = document.getElementById("letterraden");
     var letter = letterbox.value;
     letterbox.value = "";
-    console.log("in radd letter"+letter);
-  }
-  function checkit(){
-    console.log(hetWoord);
+    if (!gegokteLetters.includes(letter)) { // Is de letter al eerder gegokt? Checkt gegokteLetters array
+      if (hetWoord.includes(letter)) {
+        console.log("Letter zit erin!");
+        goedeLetter(letter);
+      } else {
+        console.log("Nope")
+      }
+      gegokteLetters.push(letter); // Voegt gegokte letter toe aan array
+    } else {
+      console.log("Letter is al gegokt!")
+    }
   }
 
+  function goedeLetter(letter) { // Als gegokte letter goed is, vervang dan de juiste - positie met de gegokte letter
+    for (var i = 0; i < hetWoord.length; i++) {
+      if (hetWoord.charAt(i) == letter) {
+        var woordArray = woord.split(" ")
+        //console.log(woordArray)
+        woordArray[i] = letter;
+        //console.log(woordArray)
+        woordArray = woordArray.join("");
+        console.log(woordArray);
+        updateWoord(woordArray);
+      }
+    }
+  }
+
+  function updateWoord(woordArray) { // Update het woord op het scherm: conversie van --- naar letters
+    var woordNieuw = "";
+    for (var i = 0; i < woordArray.length; i++) {
+      woordNieuw += woordArray[i];
+    }
+    console.log(woordNieuw);
+    document.getElementById("uitkomst").innerHTML = woordNieuw;
+    // TODO: Permanent updaten van woord op scherm, voorlopig steeds maar 1 letter
+  }
+  
 </script>
 
 <h1>Galgje</h1>
