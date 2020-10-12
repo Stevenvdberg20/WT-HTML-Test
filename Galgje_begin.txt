@@ -1,0 +1,52 @@
+<style>
+  h1{
+    color:darkblue;
+  }
+</style>
+
+<script>// galgje
+// 1 Functionele Doelstelling (opknippen -> ja)(concreet)(niet-technisch)
+// letter invoeren zien
+// 2 Technische Strategie (func doel)(wel-technisch)(tijd-precies)
+// invoerbox hebben invoeren button onclick || onkeyup veld
+// 3 Coderen (funct doel --> 1) OPRUIMEN
+// 
+  var hetWoord;
+  function beginnen(){
+    document.getElementById("invoerveld").hidden = true;
+    document.getElementById("startknop").hidden = true;
+    hetWoord = document.getElementById("invoerveld").value;
+    maakWoord();
+  }
+  function maakWoord(){
+    var x = hetWoord.length;
+    var woord = "";
+    for(var i = 0 ; i < x ; i++){
+      woord += "- ";
+    }
+    document.getElementById("uitkomst").innerHTML = woord;
+  }
+  function raadletter(){
+    var letterbox = document.getElementById("letterraden");
+    var letter = letterbox.value;
+    letterbox.value = "";
+    console.log("in radd letter"+letter);
+  }
+  function checkit(){
+    console.log(hetWoord);
+  }
+
+</script>
+
+<h1>Galgje</h1>
+
+<span>Speler 1 kies een woord</span>
+<input type="text" id="invoerveld" >
+<input type="button" id="startknop" value="beginnen" onclick="beginnen()">
+<div><h1 id=uitkomst></h1></div>
+<input type="text" id="letterraden" onkeyup=raadletter()>
+
+
+
+<br><br><br>
+<input type="button" id="nieuwknop" value="hetwoord" onclick="checkit()">
