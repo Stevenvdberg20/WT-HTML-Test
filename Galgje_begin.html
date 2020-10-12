@@ -1,7 +1,7 @@
 <head>
   <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
   <meta content="utf-8" http-equiv="encoding">
-  <title>insert page</title>
+  <title>Galgje</title>
 </head>
 <style>
   h1{
@@ -9,20 +9,18 @@
   }
 </style>
 
-<script>// galgje
-// 1 Functionele Doelstelling (opknippen -> ja)(concreet)(niet-technisch)
-// letter invoeren zien
-// 2 Technische Strategie (func doel)(wel-technisch)(tijd-precies)
-// invoerbox hebben invoeren button onclick || onkeyup veld
-// 3 Coderen (funct doel --> 1) OPRUIMEN
-// 
+<script>
   var hetWoord;
   var woord;
-  var gegokteLetters = [];
+  var gegokteLetters = []; // Array voor letters die fout zijn, maar al wel gegokt
+  var foutenOver = 5;
   function beginnen(){ // Functie voor verbergen van knop na een galg-woord te hebben gesubmit
     document.getElementById("invoerveld").hidden = true;
     document.getElementById("startknop").hidden = true;
+    document.getElementById("letterraden").hidden = false;
+    document.getElementById("welkomtekst").innerHTML = "Typ een letter om het woord te raden. Alle hoofdletters in het galg-woord worden automatisch omgezet naar kleine letters.";
     hetWoord = document.getElementById("invoerveld").value; // Het galg woord
+    hetWoord = hetWoord.toLowerCase();
     maakWoord();
   }
   function maakWoord(){ // Verander het galg-woord in streepjes
@@ -31,33 +29,38 @@
     for(var i = 0 ; i < x ; i++){
       woord += "- ";
     }
-    document.getElementById("uitkomst").innerHTML = woord;
+    document.getElementById("uitkomst").innerHTML = woord.toLowerCase();
   }
   
   function raadletter(){ // De loop voor het gokken van woorden
+  if (foutenOver > 1) {
     var letterbox = document.getElementById("letterraden");
     var letter = letterbox.value;
     letterbox.value = "";
     if (!gegokteLetters.includes(letter)) { // Is de letter al eerder gegokt? Checkt gegokteLetters array
       if (hetWoord.includes(letter)) {
         console.log("Letter zit erin!");
-        goedeLetter(letter);
+        goedeLetter(letter); // Functie voor als de letter goed is gegokt
       } else {
-        console.log("Nope")
+        foutenOver--;
+        alert("Letter zit niet in het woord! Je hebt nog " + foutenOver + " pogingen over.")
       }
       gegokteLetters.push(letter); // Voegt gegokte letter toe aan array
     } else {
       console.log("Letter is al gegokt!")
     }
+  } else {
+    foutenOver--; // Laatste poging aftrekken
+    alert("Je hebt " + foutenOver + " pogingen over, je hebt verloren. Het woord was " + hetWoord + ".")
+  }
+
   }
 
   function goedeLetter(letter) { // Als gegokte letter goed is, vervang dan de juiste - positie met de gegokte letter
     for (var i = 0; i < hetWoord.length; i++) {
       if (hetWoord.charAt(i) == letter) {
         var woordArray = woord.split(" ")
-        //console.log(woordArray)
         woordArray[i] = letter;
-        //console.log(woordArray)
         woordArray = woordArray.join("");
         console.log(woordArray);
         updateWoord(woordArray);
@@ -68,24 +71,30 @@
   function updateWoord(woordArray) { // Update het woord op het scherm: conversie van --- naar letters
     var woordNieuw = "";
     for (var i = 0; i < woordArray.length; i++) {
-      woordNieuw += woordArray[i];
+      woordNieuw += woordArray[i] + " ";
     }
     console.log(woordNieuw);
-    document.getElementById("uitkomst").innerHTML = woordNieuw;
-    // TODO: Permanent updaten van woord op scherm, voorlopig steeds maar 1 letter
+    document.getElementById("uitkomst").innerHTML = woordNieuw; // Woord op scherm updaten
+    woord = woordNieuw; // Deze updaten zodat het woord op het scherm niet reset
+    if (!woord.includes("-")) {
+      alert("Gefeliciteerd, je hebt geraden met nog " + foutenOver + " pogingen over.")
+    }
   }
   
 </script>
+<body>
+  <h1>Galgje</h1>
 
-<h1>Galgje</h1>
+  <span id="welkomtekst">Voer een galg-woord in.</span>
+  <input type="text" id="invoerveld" >
+  <input type="button" id="startknop" value="beginnen" onclick="beginnen()">
+  <div><h1 id=uitkomst></h1></div>
+  <input type="text" id="letterraden" onkeyup=raadletter() hidden=true>
+  
+  
 
-<span>Speler 1 kies een woord</span>
-<input type="text" id="invoerveld" >
-<input type="button" id="startknop" value="beginnen" onclick="beginnen()">
-<div><h1 id=uitkomst></h1></div>
-<input type="text" id="letterraden" onkeyup=raadletter()>
+  <!-- <br><br><br>
+  <input type="button" id="nieuwknop" value="hetwoord" onclick="checkit()">
+  -->
+</body>
 
-
-
-<br><br><br>
-<input type="button" id="nieuwknop" value="hetwoord" onclick="checkit()">
