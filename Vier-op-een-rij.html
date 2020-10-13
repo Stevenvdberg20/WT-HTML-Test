@@ -65,7 +65,7 @@
                 if (document.getElementById(index).value == "hoi"){
                     document.getElementById(index).value = "bah";
                     document.getElementById(index).style.color = steenKleur;
-                    controle_win(index, steenKleur)
+                    controle_win();
                     if (index == "1."+kolom){
                         document.getElementById("button"+kolom).disabled = true;
                     }
@@ -74,8 +74,65 @@
             }
         }
 
-        function controle_win(index, steenKleur){
-            
+        function controle_win(){
+            console.log("Controle win begint");
+            var consecRed = 0;
+            var consecYel = 0;
+
+            for (var i = 1; i < 6; i++) {
+                for (var j = 1; j < 7; j++) {
+                    console.log("Tweede loop begint")
+                    if (document.getElementById(i + "." + j).style.color == 'red') {
+                        console.log(document.getElementById(i + "." + j).style.color)
+                        consecRed++;
+                        consecYel = 0;
+                        console.log("+1 Rood op horizontaal" + consecRed)
+                    } else if (document.getElementById(i + "." + j).style.color == 'yellow'){
+                        console.log(document.getElementById(i + "." + j).style.color)
+                        consecYel++;
+                        consecRed = 0;
+                        console.log("+1 Geel op horizontaal" + consecYel)
+                    }
+                    if (consecRed == 4) {
+                        alert("Rood wint, horizontaal!");
+                        reset();
+                        break;
+                    } else if (consecYel == 4) {
+                        alert("Geel wint, horizontaal!");
+                        reset();
+                        break;
+                    }
+                }
+            }
+
+            consecRed = 0;
+            consecYel = 0;
+        
+            for (var i = 1; i <= 7; i++) {
+                for (var j = 1; j <= 6; j++) {
+                    console.log("Derde loop begint")
+                    if (document.getElementById(j + "." + i).style.color == 'red') {
+                        console.log(document.getElementById(j + "." + i).style.color)
+                        consecRed++;
+                        consecYel = 0;
+                        console.log("+1 Rood op verticaal" + consecRed)
+                    } else if (document.getElementById(j + "." + i).style.color == 'yellow'){
+                        console.log(document.getElementById(j + "." + i).style.color)
+                        consecYel++;
+                        consecRed = 0;
+                        console.log("+1 Geel op verticaal" + consecYel)
+                    }
+                    if (consecRed == 4) {
+                        alert("Rood wint, verticaal!");
+                        reset();
+                        break;
+                    } else if (consecYel == 4) {
+                        alert("Geel wint, verticaal!");
+                        reset();
+                        break;
+                    }
+                }
+            }
         }
 
         function reset(){
