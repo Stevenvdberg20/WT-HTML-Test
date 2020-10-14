@@ -6,6 +6,9 @@
     </head>
     <script>
 
+        var spelerEenBeurt = true;
+        var steenKleur;
+
         function maakmatrix(){
             var mytable = "<body><table><button onclick='reset()'>reset</button><tr>";
                 var tel_regel = 1
@@ -27,9 +30,6 @@
             mytable += "<tr><th><button id='button1' onclick='doeZet(1)' onmouseover='kolom_regel_kleur(1)' onmouseout='kolom_regel_return(1)'>.</button></th><th><button onclick='doeZet(2)' id='button2' onmouseover='kolom_regel_kleur(2)' onmouseout='kolom_regel_return(2)'>.</button></th><th><button onclick='doeZet(3)' id='button3' onmouseover='kolom_regel_kleur(3)' onmouseout='kolom_regel_return(3)'>.</button></th><th><button onclick='doeZet(4)' id='button4' onmouseover='kolom_regel_kleur(4)' onmouseout='kolom_regel_return(4)'>.</button></th><th><button onclick='doeZet(5)' id='button5' onmouseover='kolom_regel_kleur(5)' onmouseout='kolom_regel_return(5)'>.</button></th><th><button onclick='doeZet(6)' id='button6' onmouseover='kolom_regel_kleur(6)' onmouseout='kolom_regel_return(6)'>.</button></th><th><button onclick='doeZet(7)' id='button7' onmouseover='kolom_regel_kleur(7)' onmouseout='kolom_regel_return(7)'>.</button></tr></th></tr></table></body>";
             document.write(mytable);
         }
-
-
-        var spelerEenBeurt = true;
 
         function kolom_regel_kleur(kolom){
             for (index = "1."+kolom; index < "7."+kolom; index++) {
@@ -76,68 +76,40 @@
 
         function controle_win(){
             console.log("Controle win begint");
-            var consecRed = 0;
-            var consecYel = 0;
+            var consec = 0;
 
             for (var i = 1; i <= 6; i++) { // Check rijen voor gelijke kleuren
                 for (var j = 1; j <= 7; j++) {
                     console.log("Check rijen")
-                    if (document.getElementById(i + "." + j).style.color == 'red') {
+                    if (document.getElementById(i + "." + j).style.color == steenKleur) {
                         console.log(document.getElementById(i + "." + j).style.color)
-                        consecRed++;
-                        consecYel = 0;
-                        console.log("+1 Rood op horizontaal, totaal rood is " + consecRed)
-                    } else if (document.getElementById(i + "." + j).style.color == 'yellow'){
-                        console.log(document.getElementById(i + "." + j).style.color)
-                        consecYel++;
-                        consecRed = 0;
-                        console.log("+1 Geel op horizontaal, totaal geel is " + consecYel)
+                        consec++;
+                        console.log("+1 " + steenKleur + " op horizontaal, totaal " + steenKleur + " is " + consec)
                     } else {
-                        consecRed = 0;
-                        consecYel = 0;
+                        consec = 0;
                     }
-                    if (consecRed == 4) {
-                        alert("Rood wint, horizontaal!");
-                        reset();
-                        i = 7;
-                        j = 8;
-                    } else if (consecYel == 4) {
-                        alert("Geel wint, horizontaal!");
-                        reset();
+                    if (consec == 4) {
+                        alert(steenKleur + " wint, horizontaal!");
                         i = 7;
                         j = 8;
                     }
                 }
             }
 
-            consecRed = 0;
-            consecYel = 0;
+            consec = 0; // Reset consec, anders onthoudt hij die waarde van het checken van de rijen
         
             for (var i = 1; i <= 7; i++) { // Check kolommen voor gelijke kleuren
                 for (var j = 1; j <= 6; j++) {
                     console.log("Check kolommen")
-                    if (document.getElementById(j + "." + i).style.color == 'red') {
-                        console.log(document.getElementById(j + "." + i).style.color)
-                        consecRed++;
-                        consecYel = 0;
-                        console.log("+1 Rood op horizontaal, totaal rood is " + consecRed)
-                    } else if (document.getElementById(j + "." + i).style.color == 'yellow'){
-                        console.log(document.getElementById(j + "." + i).style.color)
-                        consecYel++;
-                        consecRed = 0;
-                        console.log("+1 Geel op horizontaal, totaal geel is " + consecYel)
+                    if (document.getElementById(j + "." + i).style.color == steenKleur) {
+                        console.log(document.getElementById(i + "." + j).style.color)
+                        consec++;
+                        console.log("+1 " + steenKleur + " op verticaal, totaal " + steenKleur + " is " + consec)
                     } else {
-                        consecRed = 0;
-                        consecYel = 0;
+                        consec = 0;
                     }
-                    if (consecRed == 4) {
-                        alert("Rood wint, verticaal!");
-                        reset();
-                        i = 7;
-                        j = 8;
-                    } else if (consecYel == 4) {
-                        alert("Geel wint, verticaal!");
-                        reset();
+                    if (consec == 4) {
+                        alert(steenKleur + " wint, verticaal!");
                         i = 7;
                         j = 8;
                     }
