@@ -65,13 +65,13 @@
                 if (document.getElementById(index).value == "hoi"){
                     document.getElementById(index).value = "bah";
                     document.getElementById(index).style.color = steenKleur;
-                    controle_win();
                     if (index == "1."+kolom){
                         document.getElementById("button"+kolom).disabled = true;
                     }
                     index = 0;
                 }
             }
+            controle_win();
         }
 
         function controle_win(){
@@ -79,28 +79,33 @@
             var consecRed = 0;
             var consecYel = 0;
 
-            for (var i = 1; i < 6; i++) {
-                for (var j = 1; j < 7; j++) {
-                    console.log("Tweede loop begint")
+            for (var i = 1; i <= 6; i++) { // Check rijen voor gelijke kleuren
+                for (var j = 1; j <= 7; j++) {
+                    console.log("Check rijen")
                     if (document.getElementById(i + "." + j).style.color == 'red') {
                         console.log(document.getElementById(i + "." + j).style.color)
                         consecRed++;
                         consecYel = 0;
-                        console.log("+1 Rood op horizontaal" + consecRed)
+                        console.log("+1 Rood op horizontaal, totaal rood is " + consecRed)
                     } else if (document.getElementById(i + "." + j).style.color == 'yellow'){
                         console.log(document.getElementById(i + "." + j).style.color)
                         consecYel++;
                         consecRed = 0;
-                        console.log("+1 Geel op horizontaal" + consecYel)
+                        console.log("+1 Geel op horizontaal, totaal geel is " + consecYel)
+                    } else {
+                        consecRed = 0;
+                        consecYel = 0;
                     }
                     if (consecRed == 4) {
                         alert("Rood wint, horizontaal!");
                         reset();
-                        break;
+                        i = 7;
+                        j = 8;
                     } else if (consecYel == 4) {
                         alert("Geel wint, horizontaal!");
                         reset();
-                        break;
+                        i = 7;
+                        j = 8;
                     }
                 }
             }
@@ -108,28 +113,33 @@
             consecRed = 0;
             consecYel = 0;
         
-            for (var i = 1; i <= 7; i++) {
+            for (var i = 1; i <= 7; i++) { // Check kolommen voor gelijke kleuren
                 for (var j = 1; j <= 6; j++) {
-                    console.log("Derde loop begint")
+                    console.log("Check kolommen")
                     if (document.getElementById(j + "." + i).style.color == 'red') {
                         console.log(document.getElementById(j + "." + i).style.color)
                         consecRed++;
                         consecYel = 0;
-                        console.log("+1 Rood op verticaal" + consecRed)
+                        console.log("+1 Rood op horizontaal, totaal rood is " + consecRed)
                     } else if (document.getElementById(j + "." + i).style.color == 'yellow'){
                         console.log(document.getElementById(j + "." + i).style.color)
                         consecYel++;
                         consecRed = 0;
-                        console.log("+1 Geel op verticaal" + consecYel)
+                        console.log("+1 Geel op horizontaal, totaal geel is " + consecYel)
+                    } else {
+                        consecRed = 0;
+                        consecYel = 0;
                     }
                     if (consecRed == 4) {
                         alert("Rood wint, verticaal!");
                         reset();
-                        break;
+                        i = 7;
+                        j = 8;
                     } else if (consecYel == 4) {
                         alert("Geel wint, verticaal!");
                         reset();
-                        break;
+                        i = 7;
+                        j = 8;
                     }
                 }
             }
