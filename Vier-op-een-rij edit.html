@@ -8,9 +8,10 @@
 
         var spelerEenBeurt = true;
         var steenKleur;
+        var mytable
 
         function maakmatrix(){
-            var mytable = "<body><table><button onclick='reset()'>reset</button><tr>";
+            mytable = "<body><table><button onclick='reset()'>reset</button><tr> <body><table><button onclick='exporteer(mytable)'>exporteer</button><tr>";
                 var tel_regel = 1
                 var tel_kolom = 0
             for (var i = 1; i < 43; i++) {
@@ -123,6 +124,14 @@
                     document.getElementById(regel+"."+kolom).value = "";
                 }
             }
+        }
+
+        function exporteer(bord){
+            var bordStand = JSON.stringify(bord);
+            console.log(bordStand);
+        }
+
+        function importeer(bord){
         }
     
     </script>
