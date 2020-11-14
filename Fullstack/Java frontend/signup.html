@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+		  <meta content="utf-8" http-equiv="encoding">
+		<link rel="stylesheet" href="signup.css">
+	</head>
+	<script>
+
+		function registreer() {
+			alert("Jippie");
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+
+				alert("Nieuwe gebruiker aangemaakt!");
+			}
+			
+			var nm = document.getElementById("naam").value;
+			var ww = document.getElementById("ww").value;
+			var em = document.getElementById("email").value;
+			var gb = document.getElementById("geboorte").value;
+			// xhr.open("GET","http://localhost:8082/gebTest", true);
+			var site = "http://localhost:8082/nieuwe/" + nm + "/" + ww + "/" + em + "/" + gb;
+			//console.log(document.getElementById("naam").value, document.getElementById("ww").value, document.getElementById("email").value, document.getElementById("geboorte").value);
+			console.log(nm, ww, em, gb);
+			console.log(site);
+			xhr.open("GET", site, true);
+			xhr.send();
+		}
+		
+		function registreerTest() {
+			alert("Jippie");
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				alert("Nieuwe gebruiker aangemaakt!");
+			}
+			
+			var nm = document.getElementById("naam").value;
+			var ww = document.getElementById("ww").value;
+			var em = document.getElementById("email").value;
+			var gb = document.getElementById("geboorte").value;
+			xhr.open("GET","http://localhost:8082/gebTest", true);
+			//var site = "http://localhost:8082/nieuwe/" + nm + "/" + ww + "/" + em + "/" + gb;
+			//console.log(document.getElementById("naam").value, document.getElementById("ww").value, document.getElementById("email").value, document.getElementById("geboorte").value);
+			console.log(nm, ww, em, gb);
+			// xhr.open("GET", site, true);
+			xhr.send();
+		}
+		
+	</script>
+	 <form style="border:1px solid #ccc">
+	  <div class="container">
+		<h1>Registreer</h1>
+		<hr>
+
+		<label for="naam"><b>Naam</b></label>
+		<input type="text" placeholder="Volledige naam" id="naam" required>
+
+		<label for="ww"><b>Wachtwoord</b></label>
+		<input type="password" placeholder="Wachtwoord" id="ww" required>
+		
+		<label for="email"><b>Emailadres</b></label>
+		<input type="text" placeholder="Emailadres" id="email" required>
+		
+		<label for="geboorte"><b>Geboortedatum</b></label>
+		<input type="date" id="geboorte" required>
+
+		<div class="clearfix">
+		  <button type="submit" class="signupbtn" onclick=registreer()>Registreer</button>
+		  <br>
+		  <button type="button" class="cancelbtn">Annuleer</button>
+		  <br>
+		  <button type="submit" class="signupbtn" onclick=registreerTest()>Test</button>
+		</div>
+	  </div>
+	</form> 
+</html>
