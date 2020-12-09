@@ -1,13 +1,14 @@
 package com.example.demo.domein;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
-public class gebruiker {
+public class Gebruiker {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
@@ -16,7 +17,18 @@ public class gebruiker {
     String ww;
     String email;
     LocalDate geboorte;
+   
+    @OneToMany
+    List<Boek> boeken;
 
+
+    public void addBoek(Boek boek) {
+        boeken.add(boek);
+    }
+
+    public List<Boek> getBoeken() {
+        return boeken;
+    }
 
     public long getId() {
         return id;
@@ -34,6 +46,7 @@ public class gebruiker {
         this.naam = naam;
     }
 
+    @JsonIgnore
     public String getWw() {
         return ww;
     }
