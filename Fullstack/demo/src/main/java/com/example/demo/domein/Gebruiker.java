@@ -17,6 +17,7 @@ public class Gebruiker {
     String ww;
     String email;
     LocalDate geboorte;
+    String autorisatie;
    
     @OneToMany
     List<Boek> boeken;
@@ -46,7 +47,7 @@ public class Gebruiker {
         this.naam = naam;
     }
 
-    @JsonIgnore
+    //@JsonIgnore
     public String getWw() {
         return ww;
     }
@@ -69,6 +70,14 @@ public class Gebruiker {
 
     public void setGeboorte(LocalDate geboorte) {
         this.geboorte = geboorte;
+    }
+
+    public String getAutorisatie() {
+        return autorisatie;
+    }
+
+    public void setAutorisatie(String autorisatie) {
+        this.autorisatie = autorisatie;
     }
 
 }

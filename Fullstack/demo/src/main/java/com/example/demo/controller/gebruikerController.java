@@ -32,6 +32,11 @@ public class gebruikerController {
         return gr.findById(gebruikerId).get();
     }
 
+    public String autorisatieLevel(String email) {
+        List<Gebruiker> eenAutor = gr.findByEmail(email);
+        return eenAutor.get(0).getAutorisatie();
+    }
+
     /*public boolean magInloggen(Gebruiker login) {
         List<Gebruiker> gebruikerGegevens = gr.findByEmail_Ww(login.getEmail()); //vindt gebruiker op basisvan email en ww returns gebruiker -- nodig voor gebruikersprofiel
         System.out.println(gebruikerGegevens);

@@ -65,14 +65,14 @@ public class biebEP {
 
     @PostMapping("nieuwegebruiker") 
     public void nieuweGebruiker(@RequestBody Gebruiker gebruiker) { // @Requestbody
-        System.out.println("Hij doet het! " + gebruiker.getNaam() + " - " + gebruiker.getGeboorte()); 
-        System.out.println("Type van geboorte: " + gebruiker.getGeboorte().getClass().getSimpleName());
+        //System.out.println("Hij doet het! " + gebruiker.getNaam() + " - " + gebruiker.getGeboorte()); 
+        //System.out.println("Type van geboorte: " + gebruiker.getGeboorte().getClass().getSimpleName());
         gc.gebruikerOpslaan(gebruiker);
     }
 
     @PostMapping("nieuwboek") 
     public void nieuwBoek(@RequestBody Boek boek) { // @Requestbody
-        System.out.println("Hij doet het! " + boek.getTitel() + " " + boek.getIsbn()); // boek.getTitel()
+        //System.out.println("Hij doet het! " + boek.getTitel() + " " + boek.getIsbn()); // boek.getTitel()
         bc.boekOpslaan(boek);
     }
 
@@ -108,13 +108,19 @@ public class biebEP {
         return bc.alleBoekTitels(test);
     }
     
+    @PostMapping("autorisatie/{email}")
+    public String autorLevel(@PathVariable("email") String email) {
+        //getAutorisatie(email);
+        return gc.autorisatieLevel(email);
+    }
+    
     /*
     @PostMapping("test/{gebruikerid}/{boekid}")
     public void test(@PathVariable("gebruikerid") int gebruikerid, @PathVariable("boekid") int boekid) {
         bc.leenBoek(gebruikerid, boekid);
     }
     */
-
+    
     @PostMapping("test/{email}/{ww}")
     public boolean magInloggen(@PathVariable("email") String email, @PathVariable("ww") String ww) {
         return gc.magInloggen(email, ww);

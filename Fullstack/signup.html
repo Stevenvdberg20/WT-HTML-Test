@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+		  <meta content="utf-8" http-equiv="encoding">
+		<link rel="stylesheet" href="login.css">
+		<title>Registreren</title>
+	</head>
+	<script>
+
+		function registreer() {
+			// alert("Jippie");
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+
+				alert("Nieuwe gebruiker aangemaakt!");
+			}
+			
+			var nm = document.getElementById("naam").value;
+			var ww = document.getElementById("ww").value;
+			var em = document.getElementById("email").value;
+			var gb = document.getElementById("geboorte").value;
+			var site = "http://localhost:8082/nieuwe/" + nm + "/" + ww + "/" + em + "/" + gb;
+			console.log(site);
+			xhr.open("POST", site, true);
+			xhr.send();
+
+		}
+
+			
+		
+		
+		function registreerTest() {
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				alert("Nieuwe gebruiker aangemaakt!");
+			}
+
+			// window.location.href = "login.html";
+			var nm = document.getElementById("naam").value;
+			var ww = document.getElementById("ww").value;
+			var em = document.getElementById("email").value;
+			var gb = document.getElementById("geboorte").value;
+
+			xhr.open("GET","http://localhost:8082/gebTest", true);
+			xhr.send();
+
+
+			/* // LAAT DIT STAAN!!!!!!!!!!!!!!!!!
+			var site = "http://localhost:8082/boekenoverzicht/";
+			console.log(site);
+			xhr.open("GET", site, true);
+            xhr.send();
+            */
+		}
+
+		function boekTest() {
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				alert("Nieuw boek aangemaakt!");
+			}
+
+			// window.location.href = "login.html";
+			//var nm = document.getElementById("naam").value;
+			//var ww = document.getElementById("ww").value;
+			//var em = document.getElementById("email").value;
+			//var gb = document.getElementById("geboorte").value;
+
+			xhr.open("POST","http://localhost:8082/bkTest", true);
+			alert("Vlak voor send");
+			xhr.send();
+
+
+			/* // LAAT DIT STAAN!!!!!!!!!!!!!!!!!
+			var site = "http://localhost:8082/boekenoverzicht/";
+			console.log(site);
+			xhr.open("GET", site, true);
+            xhr.send();
+            */
+		}
+		
+		function alles(){
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				var testvar = JSON.parse(this.responseText);
+
+				var txt = "";
+				txt += "<table>"
+				txt += "<th>ID</th> <th>Naam</th> <th>Wachtwoord</th> <th>Geboortedatum</th> <th>Emailadres</th>"
+                for (x in testvar) {
+					txt += "<tr><td>" + testvar[x].id + 
+							"</td><td>" + testvar[x].naam + 
+							"</td><td>"	 + testvar[x].ww + 
+							"</td><td>"	+ testvar[x].geboorte + 
+							"</td><td>"	 + testvar[x].email + "</td>" +
+							"</tr>";
+                	}
+                txt += "</table>" ;   
+                document.getElementById("uitkomst").innerHTML = txt;
+			}
+			xhr.open("POST","http://localhost:8082/allegebruikers", true);
+			xhr.send();
+		}
+		
+	</script>
+	<body>
+		<form style="border:1px solid #ccc">
+			<div class="container">
+				<h1>Registreer</h1>
+				<hr>
+
+				<label for="naam"><b>Naam</b></label>
+				<input type="text" placeholder="Volledige naam" id="naam" required>
+
+				<label for="ww"><b>Wachtwoord</b></label>
+				<input type="password" placeholder="Wachtwoord" id="ww" required>
+				
+				<label for="email"><b>Emailadres</b></label>
+				<input type="text" placeholder="Emailadres" id="email" required>
+				
+				<label for="geboorte"><b>Geboortedatum</b></label>
+				<input type="date" id="geboorte" required>
+
+				<p id="uitkomst"></p> <!-- Test voor functie alle gebruikers-->
+
+				<div class="clearfix">
+					<button type="button" class="cancelbtn">Annuleer</button>
+					<button type="submit" class="signupbtn" onclick=registreer()>Registreer</button>
+					<button type="submit" class="signupbtn"  onclick=boekTest()>Nieuweboek test</button>
+					<!--<br>
+					<button type="submit" class="signupbtn"  onclick=alles()>Alle gebruikers</button>-->
+				</div>
+			</div>
+		</form> 
+	</body>
+</html>

@@ -1,0 +1,36 @@
+<html>
+    
+    <head>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+		<link rel="stylesheet" href="login.css">
+		<img src="wtlogo.jpg" alt="wtlogo">
+        <title>Inloggen</title>
+  	</head>
+	<script>
+
+		function login() {
+			// alert("Jippie");
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+
+				alert("Nieuwe login gelukt!");
+			}
+			window.location.href = "hoofdmenu.html";
+            
+            /*
+			var site = "http://localhost:8082/thuispagina/";
+			//console.log(document.getElementById("naam").value, document.getElementById("ww").value, document.getElementById("email").value, document.getElementById("geboorte").value);
+			console.log(site);
+			xhr.open("GET", site, true);
+            xhr.send();
+            */
+		}
+
+	</script>
+    <body>
+        <div class="clearfix">
+            <button type="submit" class="signupbtn" onclick=login()>Login</button>
+        </div>
+    </body>
+</html>

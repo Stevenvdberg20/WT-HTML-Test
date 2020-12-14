@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+		  <meta content="utf-8" http-equiv="encoding">
+		<link rel="stylesheet" href="opmaak.css">
+		<title>Nieuw Boek Aanmaken</title>
+	</head>
+	<script>
+		window.onload = laadData();
+		//setTimeout(() => {  console.log(window.newvar + " hallo"); }, 500);
+
+
+		function gaan() {
+			var xhr = new XMLHttpRequest();
+			var mijnboek = {};
+			mijnboek.titel = "Spring in 30 dagen";
+			mijnboek.isbn = "896";
+			var mijnboekJSON = JSON.stringify(mijnboek);
+
+			xhr.onreadystatechange = function() {
+
+			}
+			xhr.open("POST", "http://localhost:8082/hoi", true);
+			xhr.setRequestHeader("Content-Type", "application/json");
+			xhr.send(mijnboekJSON);
+		}
+
+		function nieuwboek() {
+			var site = "";
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				console.log(this.responseText);
+				if(this.readyState == 4 && this.status == 200){
+				}	
+			}
+			alert("Nieuw boek aangemaakt!");
+			console.log("check in nieuwboek functie");
+			//console.log(JSON.parse(databoek));
+			boekenlijst = JSON.parse(databoek);
+			
+			var tt = document.getElementById("titel").value;
+			var ib = document.getElementById("isbn").value;
+			var ex = 0;
+			console.log(tt + " en " + ib + " zijn de variabelen");
+			//console.log(boekenlijst);
+			
+			var new_wtId = "";
+			var counter = 0;
+			var titelaantal = 0;
+			var titelnummer = "";
+
+			for(var i = 0; i < boekenlijst.length; i++) {
+				if(boekenlijst[i].titel == tt){
+					counter++;
+					titelnummer = boekenlijst[i].wtId.charAt(0);
+				}
+				if(parseInt(boekenlijst[i].wtId.charAt(0)) > titelaantal){	//als de boekenlijst groter is dan 0
+					titelaantal = parseInt(boekenlijst[i].wtId.charAt(0));   //geeft titelaantal nummer van huidige aantal boeken in de lijst
+				}
+			}
+
+			//console.log('Counter is ' + counter);
+			//console.log('Titelaantal is ' + titelaantal);
+			if(counter == 0){ // nieuwe titel nummer
+				ex = 1;
+				new_wtId = (titelaantal + 1).toString() + ".1"
+			}
+			else { // Is de titel al bekend in de tabel? Dan optellen van wtId
+				ex = counter + 1;
+				new_wtId = titelnummer + "." + ex.toString();
+			}
+		
+			console.log(new_wtId , ex , tt , ib); // bestaat al
+			var nieuwboek = {};
+			nieuwboek.titel = tt;
+			nieuwboek.isbn = ib;
+			//nieuwboek.exemplaar = ex;
+			//nieuwboek.wtId = new_wtId;
+			nieuwboekJSON = JSON.parse(nieuwboek);
+
+			//site = "http://localhost:8082/boek/" + tt + "/" + ib + "/" + ex + "/" + new_wtId;
+			site = "http://localhost:8082/hoi";
+			console.log(site);
+			xhr.open("POST", site, true);
+			xhr.setRequestHeader("Content-Type", "application/json");
+			//xhr.send("{}");
+			xhr.send(nieuwboekJSON);
+		}
+
+		var databoek = "";
+		function laadData(){
+			var xhr = new XMLHttpRequest(); // 1
+			xhr.onreadystatechange = function(){ 
+				if(this.readyState == 4 && this.status == 200){ // 4
+					databoek = this.responseText;
+					var antwoord = JSON.parse(this.responseText);
+					mijnnnieuwefunctie(antwoord);
+					//console.log(databoek);
+				}	
+							
+			}
+			xhr.open("POST","http://localhost:8082/alleboeken", true); // 2
+			xhr.send(); // 3
+		}
+		
+		function mijnnnieuwefunctie(serverObj) {
+
+		}
+
+		function terug() {
+            window.location.href = "boekenoverzicht.html";
+        }
+		
+	</script>
+	<body>
+		<form style="border:1px solid #ccc">
+			<div class="container">
+				<h1>Aanmaken nieuw boek</h1>
+				<hr>
+
+				<label for="titel"><b>Titel</b></label>
+				<input type="text" placeholder="Volledige titel" id="titel" required>
+
+				<!--<label for="exemplaar"><b>Exemplaar</b></label>
+				<input type="text" placeholder="Exemplaarnummer" id="exemplaar">-->
+				
+				<label for="isbn"><b>ISBN</b></label>
+				<input type="text" placeholder="ISBN" id="isbn">
+
+				<p id="boekenlijst"></p> 
+
+				<div class="clearfix">
+					<button type="button" class="cancelbtn" onclick=terug()>Naar Boekenoverzicht</button>
+					<button type="button" class="signupbtn" onclick=nieuwboek()>Aanmaken</button>
+					<button type="button" class="signupbtn" onclick=gaan()>Test</button>
+
+				</div>
+			</div>
+		</form> 
+	</body>
+</html>

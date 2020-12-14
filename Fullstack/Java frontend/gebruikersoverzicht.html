@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+        <link rel="stylesheet" href="opmaak.css"> <!-- CSS referentie nog aanpassen?-->   
+        <img src="wtlogo.jpg" alt="wtlogo">
+        <title>Gebruikersoverzicht</title>
+    </head>
+
+    <script>
+    
+        window.onload = function() {
+            var autorisatie = localStorage.getItem("autorisatie");
+            console.log(autorisatie);
+            if(autorisatie == "werknemer") {
+                document.getElementById("nieuwegebruiker").remove();
+            }
+            maakTabel();
+
+        }
+
+        function terug() {
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+
+				alert("Terug naar hoofdmenu");
+			}
+			
+            window.location.href = "hoofdmenu.html";
+        }
+      
+        function naarnieuwegebruiker() {
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+
+				alert("Naar nieuwe gebruiker aanmaken");
+			}
+			
+            window.location.href = "nieuwegebruiker.html";
+
+        }
+        function gebruikersprofiel() {
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+
+				alert("Verder naar gebruikersprofiel");
+            }
+            
+            window.location.href = "gebruikersprofiel.html";
+        }
+        
+        function maakTabel(){
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+                if (this.readyState == 4 && this.status == 200) {
+                    var gebruiker = JSON.parse(this.responseText);
+                    var txt = "";
+                    txt += "<table>"
+                    txt += "<th>ID</th> <th>Naam</th> <th>Wachtwoord</th> <th>Geboortedatum</th> <th>Emailadres</th> <th>Autorisatie</th>"
+                    for (x in gebruiker) {
+                        txt += "<tr><td>" + gebruiker[x].id + 
+                                "</td><td onclick=refereerLener(this) style='cursor:pointer;color:blue'><u>" + gebruiker[x].naam + 
+                                "</u></td><td>"	+ gebruiker[x].ww + 
+                                "</td><td>"	+ gebruiker[x].geboorte + 
+                                "</td><td>"	+ gebruiker[x].email + "</td>" +
+                                "</td><td>"	+ gebruiker[x].autorisatie + "</td>" +
+                                "</tr>";
+                        }
+                    txt += "</table>" ;   
+                    document.getElementById("uitkomst").innerHTML = txt;
+                }
+			}
+			xhr.open("POST","http://localhost:8082/allegebruikers", true);
+			xhr.send();
+		}
+
+        function refereerLener(x){
+            localStorage.setItem("lenernaam",x.innerText);
+            window.location.href = "gebruikersprofiel.html";
+        }
+    </script>
+
+
+    <body>
+        <h1>Gebruikersoverzicht</h1>
+
+        <div class="clearfix">
+            <button id = "nieuwegebruiker" type="button" class="signupbtn" onclick=naarnieuwegebruiker()>Gebruiker aanmaken</button>
+            <button type="button" class="signupbtn" onclick=terug()>Terug</button>
+            <!--<button type="submit" class="signupbtn" onclick=gebruikersprofiel()>Gebruikersprofiel</button>-->
+
+        </div>
+        <p id="uitkomst"></p>
+    
+    </body>
+</html>
