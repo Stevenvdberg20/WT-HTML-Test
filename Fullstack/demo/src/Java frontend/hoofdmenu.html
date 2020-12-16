@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+        <link rel="stylesheet" href="opmaak.css"> <!-- CSS referentie nog aanpassen?-->  
+        <img src="wtlogo.jpg" alt="wtlogo">
+        <title>Hoofdmenu</title>
+    </head>
+    <script>
+        //Dit heeft Melissa geschreven!!!!!
+        // En dit heeft Steven geschreven!
+        window.onload = function() {
+            var autorisatie = localStorage.getItem("autorisatie");
+
+            if(autorisatie == "trainee"){
+                document.getElementById("gebruiker").remove();
+                document.getElementById("uitleen").remove();
+
+            } 
+        }
+        
+        function gebruikers() {
+           window.location.href = "gebruikersoverzicht.html";
+        }
+        
+        
+        
+        function boek() {
+            window.location.href = "boekenoverzicht.html";
+        }
+
+        function uitleen() {
+            window.location.href = "uitleenoverzicht.html";
+        }
+
+        function uitloggen() {
+            localStorage.clear();
+            window.location.href = "login.html";
+        }
+        
+    </script>
+    <body>
+        <h1>Hoofdmenu</h1>
+        <div class="clearfix">
+            
+            <button id="gebruiker" type="button" class="signupbtn" onclick=gebruikers()>Gebruikers</button>
+            <button type="button" class="signupbtn" onclick=boek()>Boeken</button>
+            <button id="uitleen" type="button" class="signupbtn" onclick=uitleen()>Uitleenoverzicht</button>
+            <button type="button" class="cancelbtn" onclick=uitloggen()>Uitloggen</button>
+
+       </div>
+    </body>
+</html>

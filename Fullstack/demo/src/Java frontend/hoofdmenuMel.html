@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+        <link rel="stylesheet" href="wtstyle.css"> <!-- CSS referentie nog aanpassen?-->  
+        <img src="wtlogo.jpg" alt="wtlogo">
+        <title>Hoofdmenu</title> 
+    </head>
+    <script>
+        function gebruikers() {
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+
+				alert("Door naar gebruikersoverzicht.html");
+			}
+            window.location.href = "gebruikersoverzicht.html";
+        }
+        
+        function boek() {
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+
+				alert("Door naar boekenoverzicht");
+			}
+            window.location.href = "boekenoverzicht.html";
+        }
+        
+    </script>
+    <body>
+        <style>
+            h1{
+              color: white;
+              float: initial;
+            }
+          </style>
+        <h1>Hoofdmenu</h1>
+        <div class="clearfix">
+            <button type="submit" class="signupbtn" onclick=gebruikers()>Gebruikers</button>
+            
+            <button type="submit" class="signupbtn" onclick=boek()>Boekenlijst</button>
+        </div>
+    </body>
+</html>

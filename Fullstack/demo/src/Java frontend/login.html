@@ -1,0 +1,63 @@
+<html>
+    
+    <head>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+		<link rel="stylesheet" href="opmaak.css">
+		<img src="wtlogo.jpg" alt="wtlogo">
+        <title>Inloggen</title>
+  	</head>
+	<script>
+		function login() {
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				if (this.readyState == 4 && this.status == 200) {
+					var toegang = this.responseText;
+					if (toegang == "true"){
+						getAutorisatieAndChangePage(email);
+					} else {
+						alert("Ongeldig email of wachtwoord");
+					}
+					
+
+				}
+			}			
+			var email = document.getElementById("email").value;
+			var ww = document.getElementById("ww").value;
+			var site = "http://localhost:8082/inlog/" + email + "/" + ww;
+			xhr.open("POST", site, true); 
+			xhr.send();
+		}
+		
+		
+		function getAutorisatieAndChangePage(email){
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				if (this.readyState == 4 && this.status == 200) {
+					localStorage.setItem("autorisatie", this.responseText);
+					console.log("Regel 38: " + localStorage.getItem("autorisatie"));
+					window.location.href = "hoofdmenu.html";
+				}	
+			}
+
+			var site = "http://localhost:8082/autorisatie/" + email;
+			xhr.open("POST", site, true);  
+			xhr.send();		
+				
+		}
+
+	</script>
+    <body>
+		<br><br>
+		<label for="email"><b>Email</b></label>
+		<input type="text" placeholder="Emailadres" id="email" required>
+
+		<label for="ww"><b>Wachtwoord</b></label>
+		<input type="password" placeholder="Wachtwoord" id="ww" required>
+		<br><br>
+        <div class="clearfix">
+            <button type="button" class="signupbtn" onclick=login()>Login</button>
+		</div>
+		
+    </body>
+</html>

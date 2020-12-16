@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+		  <meta content="utf-8" http-equiv="encoding">
+		<link rel="stylesheet" href="opmaak.css">
+		<title>Nieuwe Gebruiker Aanmaken</title>
+	</head>
+	<script>
+
+		function nieuwegebruiker() {
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				if(this.readyState == 4 && this.status == 200){
+					alert("Nieuwe gebruiker aangemaakt!");
+				}	
+			}
+			
+			var nieuwegebruiker = {};
+			nieuwegebruiker.naam = document.getElementById("naam").value;
+			nieuwegebruiker.ww = document.getElementById("ww").value;
+			nieuwegebruiker.email = document.getElementById("email").value;
+			nieuwegebruiker.geboorte = document.getElementById("geboorte").value;
+			nieuwegebruiker.autorisatie = document.getElementById("autorlevel").value;
+			nieuwegebruikerStringify = JSON.stringify(nieuwegebruiker); // toegevoegd
+			
+			var site = "http://localhost:8082/nieuwegebruiker/"; // aangepast!
+			xhr.open("POST", site, true);
+			xhr.setRequestHeader("Content-Type", "application/json"); // toegevoegd
+			xhr.send(nieuwegebruikerStringify);
+		}
+
+		function terug() {
+            window.location.href = "gebruikersoverzicht.html";
+		}
+
+		
+	</script>
+	<body>
+		<form style="border:1px solid #ccc">
+			<div class="container">
+				<h1>Registreer</h1>
+				<hr>
+
+				<label for="naam"><b>Naam</b></label>
+				<input type="text" placeholder="Volledige naam" id="naam" required>
+
+				<label for="ww"><b>Wachtwoord</b></label>
+				<input type="password" placeholder="Wachtwoord" id="ww" required>
+				
+				<label for="email"><b>Emailadres</b></label>
+				<input type="text" placeholder="Emailadres" id="email" required>
+				
+				<label for="geboorte"><b>Geboortedatum</b></label>
+				<input type="date" id="geboorte" required>
+
+				<p>
+				<label for="autorlevel"><b>Autorisatie</b></label>
+				<select id='autorlevel' required>
+						<option selected='selected' disabled>Kies een autorisatie niveau...</option>
+						<option>trainee</option>
+						<option>werknemer</option>
+						<option>admin</option>
+				</select>
+				</p>
+
+				<p id="uitkomst"></p>
+
+				<div class="clearfix">
+					<button type="button" class="cancelbtn"  onclick=terug()>Gebruikersoverzicht</button>
+					<button type="button" class="signupbtn" onclick=nieuwegebruiker()>Registreer</button>
+					<!--<br>
+					<button type="submit" class="signupbtn"  onclick=alles()>Alle gebruikers</button>-->
+				</div>
+			</div>
+		</form> 
+	</body>
+</html>

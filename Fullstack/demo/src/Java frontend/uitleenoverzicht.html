@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+        <link rel="stylesheet" href="opmaak.css"> <!-- CSS referentie nog aanpassen?--> 
+        <img src="wtlogo.jpg" alt="wtlogo">
+        
+        <title>Boekenoverzicht</title>  
+  	</head>
+    <script>
+
+        window.onload = maakTabel();
+
+        function terug() {
+            window.location.href = "hoofdmenu.html";
+            
+        }
+
+        function naarnieuweuitleen() {		
+            window.location.href = "uitleen.html";
+
+        }
+        
+        function maakTabel(){
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    var uitleen = JSON.parse(this.responseText);
+
+                    var txt = "";
+                    txt += "<table>";
+                    txt += "<th>ID</th> <th>Lener</th> <th>Boektitel</th> <th>Begindatum</th> <th>wtId</th> <th>Boek inleveren</th>"
+                    for (x in uitleen) {
+                        if (uitleen[x].eindDatum == null) {
+                            txt += "<tr><td>" + uitleen[x].id + 
+                                "</td><td onclick=refereerLener(this) style='cursor:pointer;color:blue'><u>" + uitleen[x].lener + 
+                                "</u></td><td onclick=refereerBoek("+ uitleen[x].wtId + ") style='cursor:pointer;color:blue'><u>"+ uitleen[x].boekTitel + 
+                                "</u></td><td>"	+ uitleen[x].beginDatum + 
+                                "</td><td>"	+ uitleen[x].wtId +
+                                "</td><td onclick=inleveren("+ uitleen[x].wtId +") style='cursor:pointer;color:blue'> Knop eindigen uitleen "	+
+                                "</td></tr>";
+                            
+                        }
+                    }
+                   // console.log(txt);
+                    txt += "</table>";   
+                    document.getElementById("uitkomst").innerHTML = txt;
+                }
+            }
+			xhr.open("POST","http://localhost:8082/alleuitleningen", true); // Deze url te gebruiken/aanpassen
+			xhr.send();
+        }
+
+        function refereerLener(x){
+            localStorage.setItem("lenernaam", x.innerText);
+            window.location.href = "gebruikersprofiel.html";
+        }
+
+
+        function refereerBoek(x){
+            console.log(x);
+            localStorage.setItem("wtId",x);
+            window.location.href = "boekprofiel.html";
+        }
+
+        function inleveren(wtidvar){
+            var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    //er gebeurt hier niks! 
+                    console.log(wtidvar);
+                }
+            }
+            
+            //var boekStringify = JSON.stringify(wtidvar); // toegevoegd
+			
+            xhr.open("POST","http://localhost:8082/boekinleveren", false); // Deze url te gebruiken/aanpassen
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(wtidvar);
+            maakTabel(); //Checken met Felix
+            
+        }
+
+        
+
+    </script>
+
+    <body>
+        <h1>Uitleen overzicht</h1>
+        <div class="clearfix">
+            <button type="button" class="signupbtn" onclick=naarnieuweuitleen()>Nieuwe uitleen aanmaken</button>
+            <button type="button" class="signupbtn" onclick=terug()>Terug</button>
+            
+        </div>
+        <p id="uitkomst"></p>
+    </body>
+</html>

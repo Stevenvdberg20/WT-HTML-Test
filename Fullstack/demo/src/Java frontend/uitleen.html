@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+		  <meta content="utf-8" http-equiv="encoding">
+		<link rel="stylesheet" href="opmaak.css">
+		<title>Nieuwe Uitleen Aanmaken</title>
+	</head>
+	<script>
+
+	
+	window.onload = selectLener();
+	var tt;
+	var wtid;
+	window.onload = function() {
+		if(localStorage.getItem("titelvooruitleen") && localStorage.getItem("wtIdvooruitleen")){
+			console.log("if statement is true!");
+			document.getElementById("titel").innerText = "U gaat " + localStorage.getItem("titelvooruitleen") + " lenen";
+			document.getElementById("wtId").innerText = "De unieke identifier van dit boek is: " + localStorage.getItem("wtIdvooruitleen");
+			
+			tt = localStorage.getItem("titelvooruitleen");
+			wtid = localStorage.getItem("wtIdvooruitleen");
+			// Storage leegmaken
+			localStorage.removeItem("titelvooruitleen");
+			localStorage.removeItem("wtIdvooruitleen");
+
+		} 
+		else {
+			selectTitel();
+		}
+	}
+	
+
+	function selectLener(){
+		
+		var xhr1 = new XMLHttpRequest();
+		xhr1.onreadystatechange = function(){
+			if(this.readyState == 4 && this.status == 200){
+				var txt = "";
+				myObj = JSON.parse(this.responseText);
+				console.log(myObj);
+
+				txt += "<select id='lenervar' required>";
+				txt += "<option selected='selected' disabled>Kies een lener...</option>";
+					for (x in myObj) {
+						txt += "<option>" + myObj[x] + "</option>";
+					}			
+				txt += "</select>"
+				document.getElementById("lener").innerHTML = txt;
+			}
+		}
+		xhr1.open("POST","http://localhost:8082/allegebruikersnamen", true);
+		xhr1.send();    
+		} 
+	
+
+	function selectTitel(){
+		
+		var xhr2 = new XMLHttpRequest();
+		xhr2.onreadystatechange = function(){
+			if (this.readyState == 4 && this.status == 200) {
+				var txt = ""; // Lege string voor uiteindelijk maken van 1 groot select element
+				//var titellijst = [];
+				myObj = JSON.parse(this.responseText);
+				txt += "<select id='titelvar' onchange=selectWtId(this) required>"
+				txt += "<option selected='selected' disabled>Kies een boek...</option>"; //toegevoegd! Zet de standaard optie op "Kies een boek...", maar je kan hem niet kiezen
+					for (x in myObj) {
+							txt += "<option>" + myObj[x] + "</option>";
+					}			
+				txt += "</select>";
+				document.getElementById("titel").innerHTML = txt;
+			}
+		}
+		
+		xhr2.open("POST","http://localhost:8082/alleboektitels/true", true);
+		xhr2.send();    
+	} 
+	
+		
+	function selectWtId(titelvar){
+		
+		var xhr2 = new XMLHttpRequest();
+		xhr2.onreadystatechange = function(){
+			if (this.readyState == 4 && this.status == 200) {
+				var txt = "";
+				myObj = JSON.parse(this.responseText);
+				txt += "<select id='wtidvar' required>"
+				txt += "<option selected='selected' disabled>Kies een exemplaar...</option>"
+					for (x in myObj) {
+						//console.log(document.getElementById("titel").innerText);
+						console.log(titelvar.value); 
+						if(myObj[x].titel == titelvar.value && myObj[x].status == "beschikbaar") {
+							txt += "<option>" + myObj[x].wtId + "</option>";
+						}
+					}			
+				txt += "</select>";
+				document.getElementById("wtId").innerHTML = txt;
+			}
+		}
+		xhr2.open("POST","http://localhost:8082/alleboeken", true);
+		xhr2.send();    
+	} 
+
+
+	function nieuweuitleen() {
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function(){
+			if(this.readyState == 4 && this.status == 200){
+				alert("Nieuwe uitleen aangemaakt!");
+			}	
+
+		}
+
+		var nieuweuitleen = {};
+		nieuweuitleen.lener = document.getElementById("lenervar").value;
+		if(tt == null){ 		// leeg beginscherm
+		 	nieuweuitleen.boekTitel = document.getElementById("titelvar").value;
+		} else {				// via boekenoverzicht aangekomen
+			nieuweuitleen.boekTitel = tt;
+		}	
+
+		if(wtid == null){
+			nieuweuitleen.wtId = document.getElementById("wtidvar").value;
+		} else {
+			nieuweuitleen.wtId = wtid;
+		}
+
+
+
+		nieuweuitleenStringify = JSON.stringify(nieuweuitleen);
+		xhr.open("POST", "http://localhost:8082/nieuweuitleen/", true);
+		xhr.setRequestHeader("Content-Type","application/json");
+		xhr.send(nieuweuitleenStringify);
+	}
+
+	function terug() {
+		window.location.href = "uitleenoverzicht.html";
+	}
+		
+	</script>
+	<body>
+		<form style="border:1px solid #ccc">
+			<div class="container">
+				<h1>Nieuwe Uitleen</h1>
+				<hr>
+				
+				<!--
+				<label for="naam"><b>Naam</b></label>
+				<input type="text" placeholder="Volledige naam" id="naam" required>
+
+				<label for="tt"><b>Boektitel</b></label>
+				<input type="password" placeholder="Wachtwoord" id="tt" required>
+				
+				<label for="begin"><b>Begindatum</b></label>
+				<input type="date" placeholder="Emailadres" id="begin" required>
+				
+				<label for="eind"><b>Einddatum</b></label>
+				<input type="date" id="eind" required>
+				-->
+				<p id="lener"></p>
+
+				<p id="titel"></p>
+
+				<p id="wtId"></p>
+
+				<div class="clearfix">
+					<button type="button" class="cancelbtn"  onclick="terug()">Uitleenoverzicht</button>
+					<button type="button" class="signupbtn" onclick="nieuweuitleen()">Nieuwe uitleen</button>
+					
+				</div>
+			</div>
+		</form> 
+	</body>
+</html>

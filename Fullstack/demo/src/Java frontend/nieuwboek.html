@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+		  <meta content="utf-8" http-equiv="encoding">
+		<link rel="stylesheet" href="opmaak.css">
+		<title>Nieuw Boek Aanmaken</title>
+	</head>
+	<script>
+
+		function nieuwboek() {
+			var site = "";
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				if(this.readyState == 4 && this.status == 200){
+				}	
+			}
+			alert("Nieuw boek aangemaakt!");
+			
+			var nieuwboek = {};
+			nieuwboek.titel = document.getElementById("titel").value;
+			nieuwboek.isbn = document.getElementById("isbn").value;
+			nieuwboekStringify = JSON.stringify(nieuwboek); 
+
+			xhr.open("POST", "http://localhost:8082/nieuwboek", true);
+			xhr.setRequestHeader("Content-Type", "application/json");
+			xhr.send(nieuwboekStringify);
+		}
+		
+		function terug() {
+            window.location.href = "boekenoverzicht.html";
+        }
+		
+	</script>
+	<body>
+		<form style="border:1px solid #ccc">
+			<div class="container">
+				<h1>Aanmaken nieuw boek</h1>
+				<hr>
+
+				<label for="titel"><b>Titel</b></label>
+				<input type="text" placeholder="Volledige titel" id="titel" required>
+
+				<label for="isbn"><b>ISBN</b></label>
+				<input type="text" placeholder="ISBN" id="isbn">
+
+				<p id="boekenlijst"></p> 
+
+				<div class="clearfix">
+					<button type="button" class="cancelbtn" onclick=terug()>Naar Boekenoverzicht</button>
+					<button type="button" class="signupbtn" onclick=nieuwboek()>Aanmaken</button>
+				</div>
+			</div>
+		</form> 
+	</body>
+</html>
