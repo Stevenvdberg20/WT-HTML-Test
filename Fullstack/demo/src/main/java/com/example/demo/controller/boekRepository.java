@@ -16,7 +16,10 @@ public interface boekRepository extends CrudRepository<Boek, Long> {
 
     @Query("SELECT b.titel FROM Boek b")
     List<String> getTitel();
-    
+
+    @Query("SELECT b FROM Boek b WHERE b.wtId = ?1")
+    Boek getBoek(String wtid);
     /* @Query("SELECT b.id, b.title FROM Book b")
     List<Object[]> getIdAndTitle(); */
+    
 }

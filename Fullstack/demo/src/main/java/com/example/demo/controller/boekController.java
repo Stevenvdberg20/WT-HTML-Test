@@ -24,15 +24,8 @@ public class boekController {
         gr.save(gebruikerEen);
     }
     
-    public void maakBoek(Boek boek) {
+    public void updateBoek(Boek boek) {
         br.save(boek);
-        /*
-        List<Boek> boeken = br.findByTitel("The Hobbit");
-        for (Boek bk: boeken) {
-            System.out.println(bk);
-        }
-
-         */
     }
     
 
@@ -40,6 +33,7 @@ public class boekController {
         bepaalExemplaar(boek);
         bepaalTitelCode(boek);
         bepaalWtId(boek);
+        boek.setStatus("beschikbaar");
         br.save(boek);
     }
     
@@ -61,7 +55,8 @@ public class boekController {
     }
 
     public void bepaalWtId(Boek boek) {
-        boek.setWtId(boek.getTitelCode() + "." + boek.getExemplaar());
+        String wtid = boek.getTitelCode() + "." + boek.getExemplaar();
+        boek.setWtId(wtid);
     }
 
 
@@ -88,10 +83,11 @@ public class boekController {
         } else if(distinct == false){ //geeft alle boek exemplaren
             boektitels = br.getTitel();
         }
-        for(String s: boektitels) {
-           // System.out.println(s);
-        }
         
         return boektitels;
+    }
+
+    public Boek getBoek(String wtid) {
+        return br.getBoek(wtid);
     }
 }

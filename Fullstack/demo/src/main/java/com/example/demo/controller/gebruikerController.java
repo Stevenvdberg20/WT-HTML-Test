@@ -19,6 +19,12 @@ public class gebruikerController {
     public Iterable<Gebruiker> alleGebruikers() {
         return gr.findAll();
     }
+    public void verwijderGebruikers(Iterable<Long> ids) {
+        for (long id: ids) {
+            gr.deleteById(id);
+            System.out.println(id + " is verwijderd uit de DB");
+        }
+    }
 
     public List<String> alleGebruikersNamen() {
         List<String> gebruikersnamen = gr.getNaam();

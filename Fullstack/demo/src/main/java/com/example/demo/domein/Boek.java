@@ -16,7 +16,7 @@ public class Boek {
     int titelCode;
     int exemplaar;
     String isbn;
-    boolean uitgeleend;
+    String status;
     String wtId;
 
     public String getWtId() {
@@ -60,12 +60,12 @@ public class Boek {
         this.isbn = isbn;
     }
 
-    public boolean isUitgeleend() {
-        return uitgeleend;
+    public String getStatus() {
+        return status;
     }
 
-    public void setUitgeleend(boolean uitgeleend) {
-        this.uitgeleend = uitgeleend;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public int getTitelCode() {

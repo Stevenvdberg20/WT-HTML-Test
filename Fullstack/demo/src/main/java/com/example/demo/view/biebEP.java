@@ -58,9 +58,13 @@ public class biebEP {
     
 
     @PostMapping("nieuweuitleen")
-    public void nieuweUitleen(@RequestBody Uitleen uitleen)  {
+    public Boek nieuweUitleen(@RequestBody Uitleen uitleen)  {
         System.out.println("Nieuwe Uitleen: " + uitleen.getLener()+ " - " + uitleen.getBoekTitel());
+        Boek boek = bc.getBoek(uitleen.getWtId());
+        boek.setStatus("uitgeleend");
+        bc.updateBoek(boek);
         uc.uitleenOpslaan(uitleen);
+        return boek;
     }
 
     @PostMapping("nieuwegebruiker") 
@@ -79,6 +83,11 @@ public class biebEP {
     @PostMapping("allegebruikers")
     public Iterable<Gebruiker> alleGebruikers() {
         return gc.alleGebruikers();
+    }
+
+    @PostMapping("verwijdergebruikers")
+    public void verwijderGebruikers(@RequestBody Iterable<Long> lijst){
+        gc.verwijderGebruikers(lijst);
     }
 
     @PostMapping("eengebruiker")
@@ -121,17 +130,28 @@ public class biebEP {
     }
     */
     
-    @PostMapping("test/{email}/{ww}")
+    @PostMapping("inlog/{email}/{ww}")
     public boolean magInloggen(@PathVariable("email") String email, @PathVariable("ww") String ww) {
         return gc.magInloggen(email, ww);
     }
     
-    /*
+    
+    
     @PostMapping("test")
-    public boolean magInloggen(@RequestBody Gebruiker login){
-        return gc.magInloggen(login);
+    public Boek testFunctie(){
+        return bc.getBoek("1.1");
     }
-    */
+
+    @PostMapping("boekinleveren")
+    public Boek boekInleveren(@RequestBody String wtid)  {
+        Boek boek = bc.getBoek(wtid);
+        Uitleen uitleen = uc.getUitleen(wtid);
+        boek.setStatus("beschikbaar");
+        bc.updateBoek(boek);
+        uc.updateUitleen(uitleen);
+        return boek;
+    }
+
 
 
 }

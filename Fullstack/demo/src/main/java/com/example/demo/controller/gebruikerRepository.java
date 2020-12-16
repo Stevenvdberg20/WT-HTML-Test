@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 public interface gebruikerRepository extends CrudRepository<Gebruiker, Long> {
     List<Gebruiker> findByEmail(String email);
     
+
     @Query("SELECT g.naam FROM Gebruiker g")
     List<String> getNaam();
 
