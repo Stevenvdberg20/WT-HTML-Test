@@ -27,36 +27,8 @@ public class biebEP {
     @Autowired
     uitleenController uc;
 
-    /*
-    @PostMapping("Gebruiker/{naam}/{ww}/{email}/{geboorte}")
-    public Gebruiker nieuweGebruiker(@PathVariable("naam") String naam, @PathVariable("ww") String ww, @PathVariable("email") String email, @PathVariable("geboorte") String geboorte) {
-        System.out.println("nieuweGebruiker functie");
-        Gebruiker geb = new Gebruiker();
-        geb.setNaam(naam);
-        geb.setWw(ww);
-        geb.setEmail(email);
-        LocalDate gebParse = LocalDate.parse(geboorte);
-        geb.setGeboorte(gebParse);
-        gc.maakGebruiker(geb);
-        return geb;
-    }
-    */
 
-    /*
-    @PostMapping("Uitleen/{naam}/{titel}/{wtId}")
-    public Uitleen nieuweUitleen(@PathVariable("naam") String naam, @PathVariable("titel") String titel, @PathVariable("wtId") String wtId)  {
-        System.out.println("Nieuwe Uitleen aanmaken");
-        Uitleen ul = new Uitleen();
-        ul.setLener(naam);
-        ul.setBoekTitel(titel);
-        ul.setBeginDatum(LocalDate.now());
-        ul.setWtId(wtId);
-        uc.maakUitleen(ul);
-        return ul;
-    }
-    */
-    
-
+    // Aanmaken nieuwe uitleen (= interactie tussen gebruiker en boek)
     @PostMapping("nieuweuitleen")
     public Boek nieuweUitleen(@RequestBody Uitleen uitleen)  {
         System.out.println("Nieuwe Uitleen: " + uitleen.getLener()+ " - " + uitleen.getBoekTitel());
@@ -67,49 +39,71 @@ public class biebEP {
         return boek;
     }
 
+    // Aanmaken nieuwe gebruiker
     @PostMapping("nieuwegebruiker") 
-    public void nieuweGebruiker(@RequestBody Gebruiker gebruiker) { // @Requestbody
-        //System.out.println("Hij doet het! " + gebruiker.getNaam() + " - " + gebruiker.getGeboorte()); 
-        //System.out.println("Type van geboorte: " + gebruiker.getGeboorte().getClass().getSimpleName());
+    public void nieuweGebruiker(@RequestBody Gebruiker gebruiker) { 
         gc.gebruikerOpslaan(gebruiker);
     }
 
+    // Aanmaken nieuw boek
     @PostMapping("nieuwboek") 
-    public void nieuwBoek(@RequestBody Boek boek) { // @Requestbody
-        //System.out.println("Hij doet het! " + boek.getTitel() + " " + boek.getIsbn()); // boek.getTitel()
+    public void nieuwBoek(@RequestBody Boek boek) {
         bc.boekOpslaan(boek);
     }
 
+    // Aanmaken nieuw exemplaar van boek dat al bekend is in database
+    @PostMapping("nieuwexemplaar") 
+    public void nieuwExemplaar(@RequestBody Boek boektitel) { // @Requestbody
+        bc.nieuwExemplaar(boektitel);
+    }
+
+    // Geeft alle objecten gebruikers in een list
     @PostMapping("allegebruikers")
     public Iterable<Gebruiker> alleGebruikers() {
         return gc.alleGebruikers();
     }
 
+    // Verwijder geselecteerde gebruikers
     @PostMapping("verwijdergebruikers")
     public void verwijderGebruikers(@RequestBody Iterable<Long> lijst){
         gc.verwijderGebruikers(lijst);
     }
 
+    /* // Test DTO met Felix (wordt niet actief gebruikt)
     @PostMapping("eengebruiker")
     public GebruikerDTO eenGebruiker() {
         Gebruiker gebruiker = gc.eenGebruiker(35);
         GebruikerDTO gdt = new GebruikerDTO(gebruiker);
         return gdt;
     }
+    */
 
+    // Geeft alle objecten boeken in een list
     @PostMapping("alleboeken")
     public Iterable<Boek> alleBoeken() {
         return bc.alleBoeken();
     }
 
+    // Geeft alle objecten uitleningen in een list
     @PostMapping("alleuitleningen")
     public Iterable<Uitleen> alleUitleningen() {
         return uc.alleUitleen();
     }
 
+    // Geeft de naam van iedere bestaande gebruiker in een list
     @PostMapping("allegebruikersnamen")
     public Iterable<String> alleGebruikersNamen() {
         return gc.alleGebruikersNamen();
+    }
+
+    @PostMapping("gebruikersnamenSort")
+    public Iterable<Gebruiker> gebruikersnamenSort() {
+        return gc.sorteerGebruiker();
+    }
+
+    @PostMapping("boekexemplaarSort")
+    public Iterable<Boek> boekexemplaarSort() {
+        return bc.sorteerBoek();
     }
 
     @PostMapping("alleboektitels/{test}")
@@ -123,25 +117,13 @@ public class biebEP {
         return gc.autorisatieLevel(email);
     }
     
-    /*
-    @PostMapping("test/{gebruikerid}/{boekid}")
-    public void test(@PathVariable("gebruikerid") int gebruikerid, @PathVariable("boekid") int boekid) {
-        bc.leenBoek(gebruikerid, boekid);
-    }
-    */
-    
+    // Verifieert ingevoerde inloggegevens en bepaalt authorisatie niveau
     @PostMapping("inlog/{email}/{ww}")
     public boolean magInloggen(@PathVariable("email") String email, @PathVariable("ww") String ww) {
         return gc.magInloggen(email, ww);
     }
-    
-    
-    
-    @PostMapping("test")
-    public Boek testFunctie(){
-        return bc.getBoek("1.1");
-    }
 
+    // Zet de einddatum van een uitleen op de huidige datum, en zet boekstatus naar beschikbaar
     @PostMapping("boekinleveren")
     public Boek boekInleveren(@RequestBody String wtid)  {
         Boek boek = bc.getBoek(wtid);
@@ -152,6 +134,11 @@ public class biebEP {
         return boek;
     }
 
-
+    // Verwijdert geselecteerde boeken
+    @PostMapping("verwijderboeken")
+    public void verwijderBoeken(@RequestBody Iterable<Long> lijst){
+        System.out.println(lijst.toString());
+        bc.verwijderBoeken(lijst);
+    }
 
 }

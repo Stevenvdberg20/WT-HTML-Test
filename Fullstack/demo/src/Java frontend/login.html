@@ -18,8 +18,6 @@
 					} else {
 						alert("Ongeldig email of wachtwoord");
 					}
-					
-
 				}
 			}			
 			var email = document.getElementById("email").value;
@@ -46,6 +44,10 @@
 				
 		}
 
+		function naarRegistreer() {
+			window.location.href = "signup.html";
+		}
+
 	</script>
     <body>
 		<br><br>
@@ -56,7 +58,7 @@
 		<input type="password" placeholder="Wachtwoord" id="ww" required>
 		<br><br>
         <div class="clearfix">
-            <button type="button" class="signupbtn" onclick=login()>Login</button>
+			<button type="button" class="signupbtn" onclick=login()>Login</button>
 		</div>
 		
     </body>

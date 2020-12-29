@@ -20,7 +20,6 @@ public class Boek {
     String wtId;
 
     public String getWtId() {
-        //System.out.println("Binnen getwtid");
         return wtId;
     }
 

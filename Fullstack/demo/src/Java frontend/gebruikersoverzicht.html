@@ -41,6 +41,7 @@
             window.location.href = "nieuwegebruiker.html";
 
         }
+        
         function gebruikersprofiel() {
 			var xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function(){
@@ -62,16 +63,16 @@
             var checkBox = document.getElementById(varcheckbox);
             if (checkBox.checked == true){
                 moetverwijderd.push(varcheckbox);
-                console.log(varcheckbox + " is gechecked");
+                //console.log(varcheckbox + " is gechecked");
             } else {
                 for( var i = 0;i < moetverwijderd.length; i++){
                     if ( moetverwijderd[i] === varcheckbox){ 
                          moetverwijderd.splice(i, 1); 
-                         console.log(varcheckbox + " is ontchecked");
+                         //console.log(varcheckbox + " is ontchecked");
                     }
                 }
             }
-            console.log(moetverwijderd);
+            //console.log(moetverwijderd);
         }
         
         function maakTabel(){
@@ -81,21 +82,20 @@
                     var gebruiker = JSON.parse(this.responseText);
                     var txt = "";
                     txt += "<table>"
-                    txt += "<th></th> <th>Naam</th> <th>Wachtwoord</th> <th>Geboortedatum</th> <th>Emailadres</th> <th>Autorisatie</th>"
+                    txt += "<th></th> <th>Naam</th> <th>Geboortedatum</th> <th>Emailadres</th> <th>Autorisatie</th>"
                     for (x in gebruiker) {
-                        txt += "<tr><td> <input type='checkbox' id=" + gebruiker[x].id + " onclick=boxChecked(" + gebruiker[x].id+ ")>" +
+                        txt += "<tr><td> <input type='checkbox' id=" + gebruiker[x].id + " onclick=boxChecked(" + gebruiker[x].id + ")>" +
                                 "</td><td onclick=refereerLener(this) style='cursor:pointer;color:blue'><u>" + gebruiker[x].naam + 
-                                "</u></td><td>"	+ gebruiker[x].ww + 
-                                "</td><td>"	+ gebruiker[x].geboorte + 
+                                "</u></td><td>"	+ gebruiker[x].geboorte + 
                                 "</td><td>"	+ gebruiker[x].email + "</td>" +
                                 "</td><td>"	+ gebruiker[x].autorisatie + "</td>" +
                                 "</tr>";
                     }
-                    txt += "</table>" ;  
+                    txt += "</table>";
                     document.getElementById("uitkomst").innerHTML = txt;
                 }
 			}
-			xhr.open("POST","http://localhost:8082/allegebruikers", true);
+			xhr.open("POST","http://localhost:8082/gebruikersnamenSort", true);
 			xhr.send();
 		}
 
@@ -105,27 +105,24 @@
         }
 
         function verwijderGebruiker(){
-            console.log(" Zit in functie verwijder gebruiker " + moetverwijderd);
-            //window.confirm("Weet je zeker dat je deze " + moetverwijderd.length+ " gebruikers verwijderen?");
-            if (confirm("Weet je zeker dat je deze " + moetverwijderd.length+ " gebruikers verwijderen?")) {
+            //console.log(" Zit in functie verwijder gebruiker " + moetverwijderd);
+            if (confirm("Weet je zeker dat je deze " + moetverwijderd.length+ " gebruiker(s) wilt verwijderen?")) {
                 console.log("You pressed OK!");
                 var xhr = new XMLHttpRequest();
 			    xhr.onreadystatechange = function(){
                     if (this.readyState == 4 && this.status == 200) {
                         alert("Je hebt de selectie verwijderd :(");
                         maakTabel();
+                        moetverwijderd = [];
                     }
                 }
                 moetverwijderdStringify = JSON.stringify(moetverwijderd); 
 
-                xhr.open("POST","http://localhost:8082/verwijdergebruikers", true); // NOG TE MAKEN IN JAVA
+                xhr.open("POST","http://localhost:8082/verwijdergebruikers", true);
                 xhr.setRequestHeader("Content-Type", "application/json");
                 xhr.send(moetverwijderdStringify);
                 
-            } else {
-                console.log("Dan niet");
-            }
-            
+            }           
            
         }
         
@@ -136,7 +133,7 @@
         <h1>Gebruikersoverzicht</h1>
 
         <div class="clearfix">
-            <button id = "nieuwegebruiker" type="button" class="signupbtn" onclick=naarnieuwegebruiker()>Gebruiker aanmaken</button>
+            <button id = "nieuwegebruiker" type="button" class="signupbtn" onclick=naarnieuwegebruiker()>Gebruiker Aanmaken</button>
             <button type="button" class="signupbtn" onclick=terug()>Terug</button>
             <button type="button" class="cancelbtn" onclick=verwijderGebruiker()>Verwijderen Selectie</button>
             <!--<button type="submit" class="signupbtn" onclick=gebruikersprofiel()>Gebruikersprofiel</button>-->

@@ -100,6 +100,8 @@
 			xhr.send();
 		}
 		
+		
+
 	</script>
 	<body>
 		<form style="border:1px solid #ccc">
@@ -116,16 +118,24 @@
 				<label for="email"><b>Emailadres</b></label>
 				<input type="text" placeholder="Emailadres" id="email" required>
 				
+				
+				
 				<label for="geboorte"><b>Geboortedatum</b></label>
-				<input type="date" id="geboorte" required>
+				
+				
+
+				<input type="date" id="geboorte" min="1900-01-01" required>
 
 				<p id="uitkomst"></p> <!-- Test voor functie alle gebruikers-->
+
+				<label>Enter a date after 2001-01-01:</label>
+				<input type="date" name="myDate" min="2001-01-02">
 
 				<div class="clearfix">
 					<button type="button" class="cancelbtn">Annuleer</button>
 					<button type="submit" class="signupbtn" onclick=registreer()>Registreer</button>
-					<button type="submit" class="signupbtn"  onclick=boekTest()>Nieuweboek test</button>
-					<!--<br>
+					<!--<button type="submit" class="signupbtn"  onclick=boekTest()>Nieuweboek test</button>
+					<br>
 					<button type="submit" class="signupbtn"  onclick=alles()>Alle gebruikers</button>-->
 				</div>
 			</div>

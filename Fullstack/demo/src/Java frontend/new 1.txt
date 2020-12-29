@@ -15,3 +15,10 @@ experience. For more help http://xhr.spec.whatwg.org/
             localStorage.setItem("wtId", y);
             window.location.href = "boekprofiel.html";
         }
+
+3. Moet de body voor het script geschreven worden? -- los je dit door angular etc op ?
+
+4. In nieuwegebruiker.html lukt het niet meer een gebruiker aan te maken. We hebben harde regels toegevoegd in Javascript om lege velden te voorkomen, maar nu doet hij niks.
+Dit hebben we nu opgelost door een hoop if-statements toe te voegen, maar het veld required van input doet niks
+
+5. Gebruiken we de controller + repository goed?

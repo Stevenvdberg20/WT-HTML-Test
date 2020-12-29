@@ -13,9 +13,10 @@
 			var xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function(){
 				if(this.readyState == 4 && this.status == 200){
+					alert("Nieuw boek aangemaakt!");
 				}	
 			}
-			alert("Nieuw boek aangemaakt!");
+			
 			
 			var nieuwboek = {};
 			nieuwboek.titel = document.getElementById("titel").value;

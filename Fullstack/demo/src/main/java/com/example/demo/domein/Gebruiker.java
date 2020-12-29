@@ -19,7 +19,7 @@ public class Gebruiker {
     LocalDate geboorte;
     String autorisatie;
    
-    @OneToMany
+    @OneToMany // Relevant voor DTO
     List<Boek> boeken;
 
 
@@ -47,7 +47,7 @@ public class Gebruiker {
         this.naam = naam;
     }
 
-    //@JsonIgnore
+    @JsonIgnore
     public String getWw() {
         return ww;
     }

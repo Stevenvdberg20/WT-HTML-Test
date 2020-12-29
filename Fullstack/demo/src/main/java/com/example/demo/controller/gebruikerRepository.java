@@ -14,17 +14,14 @@ public interface gebruikerRepository extends CrudRepository<Gebruiker, Long> {
     @Query("SELECT g.naam FROM Gebruiker g")
     List<String> getNaam();
 
-    @Query("SELECT g.email, g.ww FROM Gebruiker g") // NIEUW CHECK DEZE!
+    @Query("SELECT g.email, g.ww FROM Gebruiker g")
     List<String> getLoginDetails();
     
-    @Query("SELECT g.email, g.autorisatie FROM Gebruiker g") // NIEUW CHECK DEZE!
+    @Query("SELECT g.email, g.autorisatie FROM Gebruiker g")
     List<String> getAutorisatie();
 
-   /* @Query("SELECT g.email, g.ww FROM Gebruiker g") // returns idd de gebruiker met alle info, want je wilt deze doorsturen naar nieuwe pagina
-    List<Gebruiker> findByEmail_Ww(String email);
-    //List<Person> findByAddress_ZipCode(ZipCode zipCode);*/
-
-    //@Query("SELECT g.email, g.ww FROM Gebruiker g")
-    //List<String> getEmailAndWw();
+    @Query("SELECT g FROM Gebruiker g ORDER BY g.naam ASC")
+    List<Gebruiker> sorteerGebruiker();
 }
  
+

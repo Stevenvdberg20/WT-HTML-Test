@@ -6,73 +6,87 @@
 		<link rel="stylesheet" href="opmaak.css">
 		<title>Nieuwe Gebruiker Aanmaken</title>
 	</head>
-	<script>
+	
 
+	
+	<script>
 		function nieuwegebruiker() {
+			var formulier = document.getElementById("myForm");
+			alert(formulier.checkValidity());
 			var xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function(){
 				if(this.readyState == 4 && this.status == 200){
-					alert("Nieuwe gebruiker aangemaakt!");
+					alert("Je hebt een nieuwe gebruiker aangemaakt.");
 				}	
 			}
 			
 			var nieuwegebruiker = {};
-			nieuwegebruiker.naam = document.getElementById("naam").value;
-			nieuwegebruiker.ww = document.getElementById("ww").value;
-			nieuwegebruiker.email = document.getElementById("email").value;
-			nieuwegebruiker.geboorte = document.getElementById("geboorte").value;
-			nieuwegebruiker.autorisatie = document.getElementById("autorlevel").value;
-			nieuwegebruikerStringify = JSON.stringify(nieuwegebruiker); // toegevoegd
+			if(	document.getElementById("naam").value == "" || 
+				document.getElementById("ww").value == "" || 
+				document.getElementById("email").value == "" || 
+				document.getElementById("geboorte").value == ""){
+				return false;
+			} else {
+				nieuwegebruiker.naam = document.getElementById("naam").value;
+				nieuwegebruiker.ww = document.getElementById("ww").value;
+				nieuwegebruiker.email = document.getElementById("email").value;	
+				nieuwegebruiker.geboorte = document.getElementById("geboorte").value;
+				nieuwegebruiker.autorisatie = document.getElementById("autorlevel").value;
+				nieuwegebruikerStringify = JSON.stringify(nieuwegebruiker);
 			
-			var site = "http://localhost:8082/nieuwegebruiker/"; // aangepast!
-			xhr.open("POST", site, true);
-			xhr.setRequestHeader("Content-Type", "application/json"); // toegevoegd
-			xhr.send(nieuwegebruikerStringify);
+				var site = "http://localhost:8082/nieuwegebruiker/";
+				xhr.open("POST", site, false);
+				xhr.setRequestHeader("Content-Type", "application/json");
+				xhr.send(nieuwegebruikerStringify);
+			}			
 		}
 
 		function terug() {
             window.location.href = "gebruikersoverzicht.html";
 		}
 
-		
+		function maakDatum(){
+			var datumelement = "";
+			var today = new Date();
+			var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+			document.getElementById("geboorte").max = date; 
+		}
+
 	</script>
+	
 	<body>
-		<form style="border:1px solid #ccc">
+		<form name="myForm" id="myForm" style="border:1px solid #ccc">
 			<div class="container">
-				<h1>Registreer</h1>
+				<h1>Registreer nieuwe gebruiker</h1>
 				<hr>
 
 				<label for="naam"><b>Naam</b></label>
-				<input type="text" placeholder="Volledige naam" id="naam" required>
+				<input type="text" placeholder="Volledige naam" id="naam" required />
 
 				<label for="ww"><b>Wachtwoord</b></label>
-				<input type="password" placeholder="Wachtwoord" id="ww" required>
+				<input type="password" placeholder="Wachtwoord" id="ww" required />
 				
 				<label for="email"><b>Emailadres</b></label>
-				<input type="text" placeholder="Emailadres" id="email" required>
-				
+				<input type="text" placeholder="Emailadres" id="email" required />
+			
 				<label for="geboorte"><b>Geboortedatum</b></label>
-				<input type="date" id="geboorte" required>
-
+				<input type="date" id="geboorte" min="1900-01-01" onclick=maakDatum() required />
+				
 				<p>
-				<label for="autorlevel"><b>Autorisatie</b></label>
-				<select id='autorlevel' required>
-						<option selected='selected' disabled>Kies een autorisatie niveau...</option>
-						<option>trainee</option>
-						<option>werknemer</option>
-						<option>admin</option>
-				</select>
+					<label for="autorlevel"><b>Autorisatie</b></label>
+					<select id='autorlevel' required>
+							<option selected='selected' disabled>Kies een autorisatie niveau...</option>
+							<option>trainee</option>
+							<option>werknemer</option>
+							<option>admin</option>
+					</select>
 				</p>
 
 				<p id="uitkomst"></p>
-
-				<div class="clearfix">
 					<button type="button" class="cancelbtn"  onclick=terug()>Gebruikersoverzicht</button>
-					<button type="button" class="signupbtn" onclick=nieuwegebruiker()>Registreer</button>
-					<!--<br>
-					<button type="submit" class="signupbtn"  onclick=alles()>Alle gebruikers</button>-->
-				</div>
+					<button type="submit" class="signupbtn" onclick=nieuwegebruiker()>Registreer</button>
 			</div>
 		</form> 
 	</body>
+
 </html>

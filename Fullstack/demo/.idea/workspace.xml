@@ -26,19 +26,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f9a582a-1c36-4b7c-922e-4f30ea051259" name="Default Changelist" comment="Login minus geboorte">
-      <change beforePath="$PROJECT_DIR$/../Java frontend/signup.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Java frontend/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Java frontend/signup.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/demo.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Java frontend/boekenoverzicht.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/Java frontend/boekenoverzicht.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Java frontend/gebruikersoverzicht.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/Java frontend/gebruikersoverzicht.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Java frontend/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/Java frontend/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Java frontend/new 1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Java frontend/new 1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Java frontend/nieuwboek.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/Java frontend/nieuwboek.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Java frontend/nieuwegebruiker.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/Java frontend/nieuwegebruiker.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Java frontend/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/Java frontend/signup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Java frontend/uitleenoverzicht.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/Java frontend/uitleenoverzicht.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/boekController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/boekController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/boekRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/boekRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/gebruikerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/gebruikerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/gebruikerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/gebruikerRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/domein/gebruiker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/domein/Gebruiker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/domein/Boek.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/domein/Boek.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/domein/Gebruiker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/domein/Gebruiker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/view/biebEP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/view/biebEP.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/BibliotheekApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/BibliotheekApplication.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/controller/gebruikerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/controller/gebruikerController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/controller/gebruikerRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/controller/gebruikerRepository.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/domein/gebruiker.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/domein/gebruiker.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/view/biebEP.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/view/biebEP.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/example/demo/BibliotheekApplicationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/example/demo/BibliotheekApplicationTests.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +86,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Console Font" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
   </component>
   <component name="RunManager">
     <configuration name="BibliotheekApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -176,10 +184,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="340" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1605700729597" />
-    <state x="753" y="63" key="SettingsEditor" timestamp="1607339994501">
+    <state x="753" y="63" key="SettingsEditor" timestamp="1608998595592">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="753" y="63" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1607339994501" />
+    <state x="753" y="63" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1608998595592" />
     <state x="552" y="249" key="Vcs.Push.Dialog.v2" timestamp="1605358888353">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

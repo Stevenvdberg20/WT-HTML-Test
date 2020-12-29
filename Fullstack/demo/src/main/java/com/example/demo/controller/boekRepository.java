@@ -10,7 +10,6 @@ import java.util.List;
 public interface boekRepository extends CrudRepository<Boek, Long> {
     List<Boek> findByTitel(String titel);
 
-
     @Query("SELECT DISTINCT b.titel FROM Boek b")
     List<String> getDistinctTitel();
 
@@ -19,7 +18,8 @@ public interface boekRepository extends CrudRepository<Boek, Long> {
 
     @Query("SELECT b FROM Boek b WHERE b.wtId = ?1")
     Boek getBoek(String wtid);
-    /* @Query("SELECT b.id, b.title FROM Book b")
-    List<Object[]> getIdAndTitle(); */
+
+    @Query("SELECT b FROM Boek b ORDER BY b.exemplaar ASC")
+    List<Boek> sorteerBoek();
     
 }

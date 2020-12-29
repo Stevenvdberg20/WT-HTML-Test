@@ -30,15 +30,14 @@
 
                     var txt = "";
                     txt += "<table>";
-                    txt += "<th>ID</th> <th>Lener</th> <th>Boektitel</th> <th>Begindatum</th> <th>wtId</th> <th>Boek inleveren</th>"
+                    txt += "<th>Lener</th> <th>Boektitel</th> <th>Begindatum</th> <th>wtId</th> <th>Boek inleveren</th>"
                     for (x in uitleen) {
                         if (uitleen[x].eindDatum == null) {
-                            txt += "<tr><td>" + uitleen[x].id + 
-                                "</td><td onclick=refereerLener(this) style='cursor:pointer;color:blue'><u>" + uitleen[x].lener + 
+                            txt += "<tr><td onclick=refereerLener(this) style='cursor:pointer;color:blue'><u>" + uitleen[x].lener + 
                                 "</u></td><td onclick=refereerBoek("+ uitleen[x].wtId + ") style='cursor:pointer;color:blue'><u>"+ uitleen[x].boekTitel + 
                                 "</u></td><td>"	+ uitleen[x].beginDatum + 
                                 "</td><td>"	+ uitleen[x].wtId +
-                                "</td><td onclick=inleveren("+ uitleen[x].wtId +") style='cursor:pointer;color:blue'> Knop eindigen uitleen "	+
+                                "</td><td onclick=inleveren("+ uitleen[x].wtId +") style='cursor:pointer; background-color:#ff1919'> Knop eindigen uitleen "	+
                                 "</td></tr>";
                             
                         }
