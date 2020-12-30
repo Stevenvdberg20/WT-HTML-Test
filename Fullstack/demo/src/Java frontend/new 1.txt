@@ -15,13 +15,3 @@ experience. For more help http://xhr.spec.whatwg.org/
             localStorage.setItem("wtId", y);
             window.location.href = "boekprofiel.html";
         }
-
-<<<<<<< HEAD
-=======
-
-
-
-3. Moet de body voor het script geschreven worden? -- los je dit door angular etc op ?
->>>>>>> teststeven
-
-tekst toevoeg test Melissa
