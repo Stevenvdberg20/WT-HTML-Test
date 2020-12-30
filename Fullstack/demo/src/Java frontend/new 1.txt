@@ -1,0 +1,24 @@
+Vragen aan Felix
+
+1. httpRequest open( ... ; ... ; false)
+Synchronous XMLHttpRequest on the main thread is deprecated because of its detrimental effects to the end user's 
+experience. For more help http://xhr.spec.whatwg.org/
+
+2. In Boekenoverzicht.html:
+
+ function refereerBoek(x){
+            var y = x.toString();
+            /*console.log("dit is y: " + y);
+            console.log("dit is y: " + y);
+            console.log(typeof x); geeft number 
+            console.log(typeof y);*/ geeft string --> klopt
+            localStorage.setItem("wtId", y);
+            window.location.href = "boekprofiel.html";
+        }
+
+3. Moet de body voor het script geschreven worden? -- los je dit door angular etc op ?
+
+4. In nieuwegebruiker.html lukt het niet meer een gebruiker aan te maken. We hebben harde regels toegevoegd in Javascript om lege velden te voorkomen, maar nu doet hij niks.
+Dit hebben we nu opgelost door een hoop if-statements toe te voegen, maar het veld required van input doet niks
+
+5. Gebruiken we de controller + repository goed?
