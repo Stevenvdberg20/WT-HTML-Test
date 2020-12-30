@@ -4,7 +4,7 @@ import com.example.demo.controller.gebruikerController;
 import com.example.demo.controller.uitleenController;
 import com.example.demo.domein.Gebruiker;
 import com.example.demo.domein.Uitleen;
-import com.example.demo.dto.GebruikerDTO;
+// import com.example.demo.dto.GebruikerDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.example.demo.controller.boekController;
 import com.example.demo.domein.Boek;
